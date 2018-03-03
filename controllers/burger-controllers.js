@@ -5,6 +5,7 @@ var router = express.Router();
 var burgers = require('../models');
 
 
+
 // Create routes
 // ----------------------------------------------------
 // Index Redirect
@@ -13,7 +14,7 @@ router.get('/', function (req, res) {
 });
 
 
-
+  //bring all the burgers into the index page
 
   router.get('/index', function(req, res) {
     // findAll returns all entries for a table when used with no options
@@ -26,35 +27,52 @@ router.get('/', function (req, res) {
 });
 
 
-
-// Create a New Burger
-router.post('/burger/create', function (req, res) {
-  burger.insertOne(req.body.burger_name, function() {
-    res.redirect('/index');
-  });
-});
+//create a new burger
 
   router.post('/burger/create', function(req, res) {
     // console.log(req.body);
     // create takes an argument of an object describing the item we want to
     // insert into our table. In this case we just we pass in an object with a text
     // and complete property (req.body)
-    db.Todo.create({
-      text: req.body.text,
-      complete: req.body.complete
-    }).then(function(dbTodo) {
+    burgers.Burgers.create({
+      burger_name: req.body.burger_name,
+      createdAt: new Date()
+    }).then(function(data) {
       // We have access to the new todo as an argument inside of the callback function
-      res.json(dbTodo);
+      res.redirect('/index');
     });
   });
 
 
 // Devour a Burger
-router.post('/burger/eat/:id', function (req, res) {
-  burger.updateOne(req.params.id, function() {
-    res.redirect('/index');
-  });
-});
+// router.post('/burger/eat/:id', function (req, res) {
+//   burger.updateOne(req.params.id, function() {
+//     res.redirect('/index');
+//   });
+// });
+
+// [{devoured: true}, {id: burgerID}]
+
+// People.update({OwnerId: peopleInfo.newuser},
+//         {where: {id: peopleInfo.scenario.id}})
+//         .then(function (result) {
+//             response(result).code(200);
+
+      
+
+  router.post('/burger/eat/:id', function( req, res ) {
+
+
+burgers.Burgers.update({devoured: true},
+        {where: {id: req.params.id}})
+        .then(function (data) {
+            res.redirect('/index');;
+
+          });
+      });
+
+
+
 // ----------------------------------------------------
 
 
