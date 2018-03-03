@@ -2,7 +2,7 @@
 // Node Dependencies
 var express = require('express');
 var router = express.Router();
-var burgers = require('../models');
+var burgerdb = require('../models');
 
 
 
@@ -18,7 +18,7 @@ router.get('/', function (req, res) {
 
   router.get('/index', function(req, res) {
     // findAll returns all entries for a table when used with no options
-    burgers.Burgers.findAll({}).then(function(data) {
+    burgerdb.burgers.findAll({}).then(function(data) {
       // access to the burgers as an argument inside of the callback function
       var hbsObject = { burgers: data };
     //render via handlebars
@@ -34,7 +34,7 @@ router.get('/', function (req, res) {
     // create takes an argument of an object describing the item we want to
     // insert into our table. In this case we just we pass in an object with a text
     // and complete property (req.body)
-    burgers.Burgers.create({
+    burgerdb.burgers.create({
       burger_name: req.body.burger_name,
       createdAt: new Date()
     }).then(function(data) {
@@ -63,7 +63,7 @@ router.get('/', function (req, res) {
   router.post('/burger/eat/:id', function( req, res ) {
 
 
-burgers.Burgers.update({devoured: true},
+burgerdb.burgers.update({devoured: true},
         {where: {id: req.params.id}})
         .then(function (data) {
             res.redirect('/index');;
