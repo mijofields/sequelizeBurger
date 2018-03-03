@@ -1,5 +1,5 @@
 
-USE burgers_db;
+USE seqburgers_db;
 
 INSERT INTO burgers (burger_name)
 VALUES ("Big Kahuna Burger"), ("Mega Bacon Cheese & Avocado Burger"),
