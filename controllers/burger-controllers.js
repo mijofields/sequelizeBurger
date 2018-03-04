@@ -30,34 +30,15 @@ router.get('/', function (req, res) {
 //create a new burger
 
   router.post('/burger/create', function(req, res) {
-    // console.log(req.body);
-    // create takes an argument of an object describing the item we want to
-    // insert into our table. In this case we just we pass in an object with a text
-    // and complete property (req.body)
+ 
     burgerdb.burgers.create({
       burger_name: req.body.burger_name,
       createdAt: new Date()
     }).then(function(data) {
-      // We have access to the new todo as an argument inside of the callback function
+
       res.redirect('/index');
     });
   });
-
-
-// Devour a Burger
-// router.post('/burger/eat/:id', function (req, res) {
-//   burger.updateOne(req.params.id, function() {
-//     res.redirect('/index');
-//   });
-// });
-
-// [{devoured: true}, {id: burgerID}]
-
-// People.update({OwnerId: peopleInfo.newuser},
-//         {where: {id: peopleInfo.scenario.id}})
-//         .then(function (result) {
-//             response(result).code(200);
-
       
 
   router.post('/burger/eat/:id', function( req, res ) {
