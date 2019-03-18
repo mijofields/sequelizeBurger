@@ -10,15 +10,7 @@ var db        = {};
 require('dotenv').config();
 
 if (config.use_env_variable) {
-  console.log(env);
-  console.log(process.env.JAWSDB_URL);
-  var sequelize = new Sequelize({
-    username: JSON.stringify(process.env.SQL_USERNAME),
-    password: JSON.stringify(proces.env.SQL_PASSWORD),
-    database: JSON.stringify(process.env.SQL_DATABASE),
-    host: JSON.stringify(process.env.SQL_HOST),
-    dialect: JSON.stringify(process.env.SQL_DIALECT)
-  });
+  var sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
   var sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
