@@ -1,15 +1,17 @@
 // *********************************************************************************
 // CONNECTION.JS - THIS FILE INITIATES THE CONNECTION TO MYSQL
 // *********************************************************************************
+require('dotenv').config();
 
 // Dependencies
 var Sequelize = require("sequelize");
 
 // Creates mySQL connection using Sequelize
-var sequelize = new Sequelize("seqburgers_db", "root", "5qlp5word", {
+var sequelize = new Sequelize("seqburgers_db", "root", process.env.SQL_ROOT_PASSWORD, {
   host: "localhost",
   dialect: "mysql",
   operatorsAliases: false,
+  insecureAuth: true,
   pool: {
     max: 5,
     min: 0,
